@@ -1,0 +1,3 @@
+class MoviesApi{
+ApiClient
+}

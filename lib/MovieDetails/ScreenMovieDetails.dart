@@ -4,113 +4,86 @@ import 'package:apisample/MovieDetails/fetchDetails.dart';
 import 'package:flutter/material.dart';
 
 class ScreenMovieDetails extends StatefulWidget {
-  const ScreenMovieDetails(
-      {Key? key, required this.id})
-      : super(key: key);
+  const ScreenMovieDetails({Key? key, required this.id}) : super(key: key);
   final String id;
 
   @override
-  State<ScreenMovieDetails> createState() =>
-      _ScreenMovieDetailsState();
+  State<ScreenMovieDetails> createState() => _ScreenMovieDetailsState();
 }
 
-class _ScreenMovieDetailsState
-    extends State<ScreenMovieDetails> {
+class _ScreenMovieDetailsState extends State<ScreenMovieDetails> {
+  bool isReadmore = true;
+
   @override
   Widget build(BuildContext context) {
-    bool isReadmore = false;
     return SafeArea(
       child: Scaffold(
         body: FutureBuilder(
             future: fetchMovieDetails(widget.id),
             builder: (BuildContext context,
-                AsyncSnapshot<MovieDetailsModel>
-                    snapshot) {
+                AsyncSnapshot<MovieDetailsModel> snapshot) {
               if (snapshot.hasData) {
                 return Container(
                   color: Colors.black,
-                  height: MediaQuery.of(context)
-                      .size
-                      .height,
-                  width: MediaQuery.of(context)
-                      .size
-                      .width,
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
                   child: ListView(
                     children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * .30,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              baseUrl + snapshot.data!.backdropPath.toString(),
+                            ),
+                          ),
+                        ),
+                      ),
                       Column(
-                        mainAxisAlignment:
-                            MainAxisAlignment
-                                .start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const SizedBox(
                             height: 30,
                           ),
                           Container(
-                            height: MediaQuery.of(
-                                        context)
-                                    .size
-                                    .height /
-                                2.5,
+                            height: MediaQuery.of(context).size.height / 2.5,
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                            10)),
+                                borderRadius: BorderRadius.circular(10)),
                             child: Image.network(
-                              baseUrl +
-                                  snapshot.data!
-                                      .posterPath
-                                      .toString(),
+                              baseUrl + snapshot.data!.posterPath.toString(),
                               fit: BoxFit.fill,
                             ),
                           ),
-                          const SizedBox(
-                              height: 10),
+                          const SizedBox(height: 10),
                           Column(
                             children: [
                               Text(
-                                snapshot
-                                    .data!.title
-                                    .toString(),
-                                textAlign:
-                                    TextAlign
-                                        .center,
-                                style:
-                                    const TextStyle(
+                                snapshot.data!.title.toString(),
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
                                   fontSize: 26,
-                                  color: Colors
-                                      .white,
+                                  color: Colors.white,
                                 ),
                               ),
                               SizedBox(
                                 height: 30,
                               ),
                               Text(
-                                snapshot.data!
-                                    .overview
-                                    .toString(),
-                                style:
-                                    const TextStyle(
+                                snapshot.data!.overview.toString(),
+                                style: const TextStyle(
                                   fontSize: 20,
-                                  color: Colors
-                                      .white,
+                                  color: Colors.white,
                                 ),
-                                maxLines:
-                                    isReadmore
-                                        ? null
-                                        : 1,
+                                maxLines: isReadmore ? null : 1,
                                 overflow: isReadmore
-                                    ? TextOverflow
-                                        .visible
-                                    : TextOverflow
-                                        .ellipsis,
+                                    ? TextOverflow.visible
+                                    : TextOverflow.ellipsis,
                               ),
                               TextButton(
                                   onPressed: () {
                                     setState(() {
-                                      isReadmore =
-                                          !isReadmore;
-                                      print(isReadmore);
+                                      isReadmore = !isReadmore;
                                     });
                                   },
                                   child: Text((isReadmore
@@ -118,14 +91,10 @@ class _ScreenMovieDetailsState
                                       : "Read More"))),
                               Text(
                                 "Average Vote" +
-                                    snapshot.data!
-                                        .voteAverage
-                                        .toString(),
-                                style:
-                                    const TextStyle(
+                                    snapshot.data!.voteAverage.toString(),
+                                style: const TextStyle(
                                   fontSize: 26,
-                                  color: Colors
-                                      .white,
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
@@ -136,9 +105,7 @@ class _ScreenMovieDetailsState
                   ),
                 );
               }
-              return const Center(
-                  child:
-                      CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }),
       ),
     );
