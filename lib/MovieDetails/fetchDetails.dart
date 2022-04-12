@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:apisample/MovieDetails/MovieDetailsModel.dart';
+import 'package:apisample/MovieDetails/MovieModel.dart';
 import 'package:http/http.dart' as http;
 
 Future<MovieDetailsModel> fetchMovieDetails(String id) async {
