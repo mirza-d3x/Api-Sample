@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:apisample/HomePage/testModel.dart';
-import 'package:apisample/MovieDetails/MovieModel.dart';
-import 'package:apisample/Provider/ApiClient.dart';
+import 'package:apisample/HomePage/Model/TrendingModel.dart';
+import 'package:apisample/MovieDetails/Model/MovieModel.dart';
+import 'package:apisample/Api/ApiClient.dart';
 import 'package:http/http.dart';
 
 class MoviesApi{
@@ -15,9 +15,9 @@ ApiClient apiClient = ApiClient();
    return MovieDetailsModel.fromJson(jsonDecode(response.body));
  }
 
-Future<TestModel> getTrendingMovie() async{
+Future<TrendingModel> getTrendingMovie() async{
 
   Response response = await apiClient.invokeApi(trendingpath, 'GET', null);
-  return TestModel.fromJson(jsonDecode(response.body));
+  return TrendingModel.fromJson(jsonDecode(response.body));
 }
 }

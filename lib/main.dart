@@ -1,11 +1,13 @@
 import 'package:apisample/HomePage/MyHomePage.dart';
-import 'package:apisample/Provider/providertrending.dart';
+import 'package:apisample/Provider/MovieDetails/movieDetailProvider.dart';
+import 'package:apisample/Provider/TrendingProvider/providertrending.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<TrendingProvider>(create: (_) => TrendingProvider() )
+    ChangeNotifierProvider<TrendingProvider>(create: (_) => TrendingProvider(),),
+    ChangeNotifierProvider<MovieProvider>(create: (_)=> MovieProvider(),)
   ],
   child: MyApp(),));
 }
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+
       ),
       home: const MyHomePage(),
     );

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:apisample/Provider/apiException.dart';
+import 'package:apisample/Api/apiException.dart';
 import 'package:http/http.dart';
 
 class ApiClient{
