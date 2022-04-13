@@ -26,29 +26,78 @@ class _ScreenMovieDetailsState extends State<ScreenMovieDetails> {
     final providerData = Provider.of<TrendingProvider>(context);
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: providerData.loading
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : Padding(
-              padding: const EdgeInsets.all(100),
-              child: ListView(
+            : ListView(
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 40,
-                    height: MediaQuery.of(context).size.height * 40,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            baseUrl +
-                                providerData.movieDetailsModel.posterPath.toString(),
-                          ),fit: BoxFit.fill,
+                    height: MediaQuery.of(context).size.height / 2,
+                    width: MediaQuery.of(context).size.width * .50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          baseUrl +
+                              providerData.movieDetailsModel.posterPath
+                                  .toString(),
                         ),
+                        fit: BoxFit.fitHeight,
                       ),
                     ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    providerData.movieDetailsModel.title.toString(),
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "RunTime:" +
+                            providerData.movieDetailsModel.runtime.toString() +
+                            " min",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Release Date" +
+                            providerData.movieDetailsModel.releaseDate
+                                .toString(),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Average Vote" +
+                            providerData.movieDetailsModel.voteAverage
+                                .toString(),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  )
                 ],
               ),
-            ),
       ),
     );
   }
