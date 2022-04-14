@@ -1,13 +1,15 @@
 import 'package:apisample/HomePage/MyHomePage.dart';
 import 'package:apisample/Provider/MovieDetails/movieDetailProvider.dart';
 import 'package:apisample/Provider/TrendingProvider/providertrending.dart';
+import 'package:apisample/Provider/TvShowsProvider/tvShowsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<TrendingProvider>(create: (_) => TrendingProvider(),),
-    ChangeNotifierProvider<MovieProvider>(create: (_)=> MovieProvider(),)
+    ChangeNotifierProvider<MovieProvider>(create: (_)=> MovieProvider(),),
+    ChangeNotifierProvider<TvShowsProvider>(create: (_)=> TvShowsProvider(),),
   ],
   child: MyApp(),));
 }

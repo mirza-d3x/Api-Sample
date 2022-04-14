@@ -1,4 +1,4 @@
-import 'package:apisample/MovieDetails/Model/MovieModel.dart';
+import 'package:apisample/Model/MovieModel.dart';
 import 'package:apisample/Api/MoviesApi.dart';
 import 'package:flutter/cupertino.dart';
 

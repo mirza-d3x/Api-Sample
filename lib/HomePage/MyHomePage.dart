@@ -1,6 +1,7 @@
-import 'package:apisample/HomePage/Model/TrendingModel.dart';
+import 'package:apisample/Model/TrendingModel.dart';
 import 'package:apisample/MovieDetails/ScreenMovieDetails.dart';
 import 'package:apisample/Provider/TrendingProvider/providertrending.dart';
+import 'package:apisample/Provider/TvShowsProvider/tvShowsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,9 @@ class _MyHomePageState extends State<MyHomePage> {
     final trendingProvider =
         Provider.of<TrendingProvider>(context, listen: false);
     trendingProvider.getTrendingMovieData(context);
+
+    final tvShowsProvider = Provider.of<TvShowsProvider>(context, listen: false);
+    tvShowsProvider.getTvShowData(context);
     // TODO: implement initState
     super.initState();
   }
@@ -29,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final trendingProvider = Provider.of<TrendingProvider>(context);
+    final tvshowsProvider = Provider.of<TvShowsProvider>(context, listen: false);
     return Scaffold(backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text("The Movie DB"),
@@ -46,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
                   ),
 
-                  trendingProvider.loading
+                  tvshowsProvider.loading
                       ? const Center(child: CircularProgressIndicator())
                       : LimitedBox(
                           maxHeight: 280,
@@ -54,16 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             scrollDirection: Axis.horizontal,
                             itemCount: trendingProvider.trendingModel.results!.length,
                             itemBuilder: ((BuildContext context, index) => Container(
-                                  // decoration: BoxDecoration(
-                                  //     image: DecorationImage(
-                                  //         image: NetworkImage(baseUrl +
-                                  //             trendingProvider.trendingModel
-                                  //                 .results![index].posterPath
-                                  //                 .toString()),fit: BoxFit.cover)),
-                                  child: Image.network((baseUrl +
-                                      trendingProvider
-                                          .trendingModel.results![index].posterPath
-                                          .toString())),
+                              width: MediaQuery.of(context).size.width * .60,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(baseUrl +
+                                            tvshowsProvider.tvshowsModel.results![index].posterPath.toString()),fit: BoxFit.cover)),
+                                  // child: Image.network((baseUrl +
+                                  //     trendingProvider
+                                  //         .trendingModel.results![index].posterPath
+                                  //         .toString())),
                                 )),
                           ),
                         ),
