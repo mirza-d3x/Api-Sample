@@ -12,6 +12,7 @@ Map<String, String> headerparams = {};
 Response response;
 
 String url = basePath + path +'?api_key=$apiKey';
+print(url);
 
 final nullableHeaderParams = (headerparams.isEmpty)?null :headerparams;
 

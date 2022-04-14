@@ -1,9 +1,10 @@
 import 'package:apisample/Api/MoviesApi.dart';
-import 'package:apisample/Model/TvShowsModel.dart';
+import 'package:apisample/Model/TvShowModel.dart';
+
 import 'package:flutter/cupertino.dart';
 
 class TvShowsProvider with ChangeNotifier {
-  TvshowsModel tvshowsModel = TvshowsModel();
+  TvShowModel tvshowsModel = TvShowModel();
   MoviesApi moviesApi = MoviesApi();
 
   bool loading = false;

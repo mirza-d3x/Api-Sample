@@ -15,4 +15,5 @@ class MovieProvider with ChangeNotifier{
     loading = false;
     notifyListeners();
   }
+
 }

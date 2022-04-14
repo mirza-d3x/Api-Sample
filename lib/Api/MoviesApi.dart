@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'package:apisample/Model/TrendingModel.dart';
 import 'package:apisample/Model/MovieModel.dart';
 import 'package:apisample/Api/ApiClient.dart';
-import 'package:apisample/Model/TvShowsModel.dart';
+import 'package:apisample/Model/TvShowModel.dart';
 import 'package:http/http.dart';
 
 class MoviesApi{
 ApiClient apiClient = ApiClient();
  String trendingpath = "trending/movie/day";
  String moviePath = "movie/";
- String tvShowsPath = "tv/popular";
+ String tvShowsPath = "tv/top_rated";
 
  Future<MovieDetailsModel> getMoviesDetails(String id) async{
 
@@ -23,8 +23,8 @@ Future<TrendingModel> getTrendingMovie() async{
   return TrendingModel.fromJson(jsonDecode(response.body));
 }
 
-Future<TvshowsModel> getTvShows() async {
+Future<TvShowModel> getTvShows() async {
    Response response = await apiClient.invokeApi(tvShowsPath, 'GET', null);
-   return TvshowsModel.fromJson(jsonDecode(response.body));
+   return TvShowModel.fromJson(jsonDecode(response.body));
 }
 }

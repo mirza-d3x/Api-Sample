@@ -10,6 +10,7 @@ void main() {
     ChangeNotifierProvider<TrendingProvider>(create: (_) => TrendingProvider(),),
     ChangeNotifierProvider<MovieProvider>(create: (_)=> MovieProvider(),),
     ChangeNotifierProvider<TvShowsProvider>(create: (_)=> TvShowsProvider(),),
+
   ],
   child: MyApp(),));
 }

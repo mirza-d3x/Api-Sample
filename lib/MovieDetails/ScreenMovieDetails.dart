@@ -1,6 +1,5 @@
 import 'package:apisample/HomePage/MyHomePage.dart';
 import 'package:apisample/Provider/MovieDetails/movieDetailProvider.dart';
-import 'package:apisample/Provider/TrendingProvider/providertrending.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,16 +14,18 @@ class ScreenMovieDetails extends StatefulWidget {
 class _ScreenMovieDetailsState extends State<ScreenMovieDetails> {
   @override
   void initState() {
-    final movieProvider =
-        Provider.of<MovieProvider>(context, listen: false);
+    final movieProvider = Provider.of<MovieProvider>(context, listen: false);
     movieProvider.getMovieDetails(context, widget.id);
+
     // TODO: implement initState
     super.initState();
   }
 
+  bool toggleTF = false;
+
   @override
   Widget build(BuildContext context) {
-    final providerData = Provider.of<MovieProvider>(context);
+    final providerData = Provider.of<MovieProvider>(context, listen: false);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -35,13 +36,14 @@ class _ScreenMovieDetailsState extends State<ScreenMovieDetails> {
             : ListView(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height *.70,
-                    width: MediaQuery.of(context).size.width * .50,
+                    height: MediaQuery.of(context).size.height * .40,
+                    width: MediaQuery.of(context).size.width * .30,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
                           baseUrl +
-                              providerData.movieDetailsModel.posterPath.toString(),
+                              providerData.movieDetailsModel.posterPath
+                                  .toString(),
                         ),
                         fit: BoxFit.fitHeight,
                       ),
@@ -95,6 +97,31 @@ class _ScreenMovieDetailsState extends State<ScreenMovieDetails> {
                         textAlign: TextAlign.center,
                       )
                     ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        providerData.movieDetailsModel.overview.toString(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            overflow: toggleTF
+                                ? TextOverflow.visible
+                                : TextOverflow.ellipsis),
+                        maxLines: toggleTF ? null : 2,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              toggleTF = !toggleTF;
+                            });
+                          },
+                          child: Text(
+                            toggleTF ? "Show less" : "Show more",
+                          ))
+                    ],
                   )
                 ],
               ),
@@ -102,4 +129,3 @@ class _ScreenMovieDetailsState extends State<ScreenMovieDetails> {
     );
   }
 }
-
